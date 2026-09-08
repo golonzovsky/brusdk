@@ -1,0 +1,25 @@
+connected to M511
+{
+  "firmware_version": "2.0.1005769",
+  "supply_part_number": "5153508",
+  "supply_width_in": 1.5,
+  "supply_remaining_pct": 86,
+  "battery": "High",
+  "last_job_failed": false,
+  "last_job_status": null,
+  "ready": true,
+  "flags": {
+    "0005": false,
+    "0006": false,
+    "000A": false,
+    "0013": false,
+    "001C": false,
+    "0021": false,
+    "0024": false,
+    "0025": false,
+    "0027": false,
+    "005A": false,
+    "0061": false,
+    "0066": false
+  }
+}

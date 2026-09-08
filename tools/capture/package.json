@@ -1,0 +1,8 @@
+{
+  "name": "brusdk-capture-tools",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "webbluetooth": "^3.7.0"
+  }
+}

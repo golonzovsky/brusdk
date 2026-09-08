@@ -1,0 +1,25 @@
+[capture] captures/2026-09-08-s1/2026-09-08T00-24-51-063Z-white-64.jsonl
+[drive +0.00s] scanning
+Connection Failed!
+undefined: undefined
+[drive +30.09s] NOT CONNECTED
+[capture] captures/2026-09-08-s1/2026-09-08T00-25-39-254Z-white-64.jsonl
+[drive +0.00s] scanning
+Connection Failed!
+undefined: undefined
+[drive +30.10s] NOT CONNECTED
+[capture] captures/2026-09-08-s1/2026-09-08T00-27-58-775Z-white-64.jsonl
+[drive +0.00s] scanning
+[ble] found M511
+Attempting connection to M511...
+Connected to gatt...
+Getting the primary service...
+Getting the service characteristics...
+[drive +32.54s] connected
+[drive +34.30s] info {"printer":"M511","model":"M511","status":"Connected","supplyName":"M5C-1500-595-WT-BK-BULK","supplyYNumber":"5153508","supplyWidthIn":1.5,"supplyHeightIn":0.5,"dieCut":false,"dpi":300,"zone":[],"supplyRemainingPct":"90","batteryPct":100,"acConnected":false,"message":"PrinterStatus_Initialized","messageTitle":"PrinterStatus_Initialized_Title","errorSeverity":"","updates":12}
+[drive +34.30s] print captures/probes/white-64.png 64x432 copies=1 cut=0 x=-0.12 y=0
+Drawing Target Bitmap (0)...
+[drive +34.45s] print result true | printer says: PrinterStatus_Initialized_Title PrinterStatus_Initialized
+[drive +34.45s] raster 63x450 -> captures/2026-09-08-s1/white-64-raster.png
+[drive +38.45s] after-print {"printer":"M511","model":"M511","status":"Connected","supplyName":"M5C-1500-595-WT-BK-BULK","supplyYNumber":"5153508","supplyWidthIn":1.5,"supplyHeightIn":0.5,"dieCut":false,"dpi":300,"zone":[],"supplyRemainingPct":"90","batteryPct":100,"acConnected":false,"message":"PrinterStatus_Initialized","messageTitle":"PrinterStatus_Initialized_Title","errorSeverity":"","updates":27}
+[drive +38.45s] disconnect

@@ -1,0 +1,69 @@
+{
+ "at": "2026-09-08T00:19:05.895Z",
+ "device": {
+  "name": "M511",
+  "id": "39F606D6-DEF4-FE00-9C17-2B9FF82B3B8C",
+  "rssi": -58,
+  "txPower": 0,
+  "manufacturerData": {
+   "1642": "0d0100005a000000000000000000960000"
+  },
+  "serviceData": {
+   "0000fd1c-0000-1000-8000-00805f9b34fb": ""
+  }
+ },
+ "services": [
+  {
+   "uuid": "0000fd1c-0000-1000-8000-00805f9b34fb",
+   "characteristics": [
+    {
+     "uuid": "7d9d9a4d-b530-4d13-8d61-e0ff445add19",
+     "properties": [
+      "write",
+      "writeWithoutResponse"
+     ],
+     "descriptors": []
+    },
+    {
+     "uuid": "a61ae408-3273-420c-a9db-0669f4f23b69",
+     "properties": [
+      "write",
+      "writeWithoutResponse"
+     ],
+     "descriptors": []
+    },
+    {
+     "uuid": "786af345-1b68-c594-c643-e2867da117e3",
+     "properties": [
+      "indicate"
+     ],
+     "descriptors": [
+      {
+       "uuid": "00002902-0000-1000-8000-00805f9b34fb",
+       "error": "Read failed"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "events": [
+  {
+   "t_ms": 4897.5,
+   "ev": "connected"
+  },
+  {
+   "t_ms": 5147.3,
+   "ev": "subscribed",
+   "char": "786af345-1b68-c594-c643-e2867da117e3"
+  },
+  {
+   "t_ms": 20161.5,
+   "ev": "disconnect-requested"
+  },
+  {
+   "t_ms": 20161.7,
+   "ev": "disconnected"
+  }
+ ]
+}

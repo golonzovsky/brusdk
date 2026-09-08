@@ -1,0 +1,50 @@
+Some(
+    PeripheralProperties {
+        address: 00:00:00:00:00:00,
+        address_type: None,
+        local_name: Some(
+            "M511-PGM5112608303011",
+        ),
+        advertisement_name: Some(
+            "M511-PGM5112608303011",
+        ),
+        appearance: None,
+        tx_power_level: Some(
+            0,
+        ),
+        rssi: Some(
+            -63,
+        ),
+        manufacturer_data: {
+            1642: [
+                13,
+                1,
+                0,
+                0,
+                90,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                150,
+                0,
+                0,
+            ],
+        },
+        service_data: {},
+        services: [
+            0000fd1c-0000-1000-8000-00805f9b34fb,
+        ],
+        class: None,
+    },
+)
+service 0000fd1c-0000-1000-8000-00805f9b34fb primary=true
+  char 786af345-1b68-c594-c643-e2867da117e3 props=CharPropFlags(INDICATE)
+    desc 00002902-0000-1000-8000-00805f9b34fb
+  char 7d9d9a4d-b530-4d13-8d61-e0ff445add19 props=CharPropFlags(WRITE_WITHOUT_RESPONSE | WRITE)
+  char a61ae408-3273-420c-a9db-0669f4f23b69 props=CharPropFlags(WRITE_WITHOUT_RESPONSE | WRITE)
