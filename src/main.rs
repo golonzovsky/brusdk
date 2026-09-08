@@ -72,6 +72,9 @@ enum Cmd {
         /// Base width in pixels (label length at 300 dpi)
         #[arg(long, default_value_t = 64)]
         width: u32,
+        /// Image height in rows
+        #[arg(long, default_value_t = 432)]
+        rows: u32,
     },
 }
 
@@ -160,9 +163,9 @@ async fn main() -> Result<()> {
             p.disconnect().await?;
         }
         Cmd::Serve { port } => brusdk::server::serve(port).await?,
-        Cmd::Probes { out, width } => {
+        Cmd::Probes { out, width, rows } => {
             std::fs::create_dir_all(&out)?;
-            for pr in brusdk::probes::probes(width) {
+            for pr in brusdk::probes::probes(width, rows) {
                 let img = brusdk::probes::render(&pr);
                 let path = out.join(format!("{}.png", pr.name));
                 img.save(&path)?;

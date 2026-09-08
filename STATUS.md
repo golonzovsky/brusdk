@@ -47,11 +47,15 @@ _Updated: 2026-09-08 03:45 CEST_
   in place of the Node sidecar (2026-09-08 03:45, Alex: "worked well").
   Integration into crates/label-server (spawn/embed brusdk instead of node)
   is the label studio's next step.
-- Only one supply part number known (5153508); other cartridges need one
-  `brusdk status` each to extend `src/supply.rs`. Battery percent and the 13
-  boolean flags stay unmapped until an error state is captured.
+- Six cartridges in `src/supply.rs` (5153508 WT-BK, 5072987 OR-BK, 5072986 CL-BK,
+  5072905 CL-WT, 5072903 BK-WT, 5073028 M4C-250-7641-YL 0.355 in sleeve). Flags 0006/0066 = latch open;
+  the other ten flags and non-"High" battery classes are unmapped.
 - Head extent on the 450-row canvas (rows 432-449) untested; one full-height
   column print would settle it.
+- Narrow supplies: the canvas height rule (0.355 in -> 106 or 107 rows) and the
+  SDK's row placement on them are unverified; one dot print on the M4C sleeve
+  under capture would settle both. Until then `brusdk serve` rounds
+  (107 rows) and places at the SDK's 36-row default minus the studio's offset.
 - The polyfill's scan is flaky: about one connect in four times out at 30 s,
   60 s works; the Rust scanner needs the same patience.
 

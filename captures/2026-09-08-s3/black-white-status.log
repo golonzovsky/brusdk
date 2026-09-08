@@ -1,0 +1,54 @@
+connected to M511-PGM5112608303011
+{
+  "name": "M511-PGM5112608303011",
+  "properties": {
+    "0001": "High",
+    "0005": "False",
+    "0006": "False",
+    "0009": "False",
+    "000A": "False",
+    "000C": "1500",
+    "000D": "206",
+    "000E": "0",
+    "000F": "0",
+    "0013": "False",
+    "0016": "94",
+    "001C": "False",
+    "001F": "True",
+    "0020": "2.0.1005769",
+    "0021": "False",
+    "0024": "False",
+    "0025": "False",
+    "0026": "30",
+    "0027": "False",
+    "0029": "",
+    "004D": "5072903",
+    "005A": "False",
+    "0061": "False",
+    "0066": "False"
+  },
+  "status": {
+    "battery": "High",
+    "firmware_version": "2.0.1005769",
+    "flags": {
+      "0005": false,
+      "0006": false,
+      "000A": false,
+      "0013": false,
+      "001C": false,
+      "0021": false,
+      "0024": false,
+      "0025": false,
+      "0027": false,
+      "005A": false,
+      "0061": false,
+      "0066": false
+    },
+    "last_job_failed": false,
+    "last_job_status": null,
+    "ready": true,
+    "supply_part_number": "5072903",
+    "supply_remaining_pct": 94,
+    "supply_width_in": 1.5
+  }
+}

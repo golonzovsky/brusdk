@@ -8,7 +8,14 @@ pub struct Supply {
     pub die_cut: bool,
 }
 
-pub const SUPPLIES: &[Supply] = &[Supply { part_number: "5153508", name: "M5C-1500-595-WT-BK", width_in: 1.5, die_cut: false }];
+pub const SUPPLIES: &[Supply] = &[
+    Supply { part_number: "5153508", name: "M5C-1500-595-WT-BK", width_in: 1.5, die_cut: false },
+    Supply { part_number: "5072987", name: "M5C-1500-595-OR-BK", width_in: 1.5, die_cut: false },
+    Supply { part_number: "5072986", name: "M5C-1500-595-CL-BK", width_in: 1.5, die_cut: false },
+    Supply { part_number: "5072905", name: "M5C-1500-595-CL-WT", width_in: 1.5, die_cut: false },
+    Supply { part_number: "5072903", name: "M5C-1500-595-BK-WT", width_in: 1.5, die_cut: false },
+    Supply { part_number: "5073028", name: "M4C-250-7641-YL", width_in: 0.355, die_cut: false },
+];
 
 pub const DPI: u32 = 300;
 

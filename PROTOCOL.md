@@ -115,16 +115,16 @@ battery reported 100 % by the SDK, no AC:
 | ID | Value | Interpretation (correlated with the SDK's reported state) |
 |---|---|---|
 | 0001 | `High` | battery level class; the SDK reported 100 % while this read `High` (sessions 0-3, battery full). Other class names and their percentages **UNKNOWN** until seen |
-| 000C | `1500` | supply width in mils (SDK: supplyWidth 1.5 in) |
-| 000D | `206` | **UNKNOWN** (SDK showed supplyHeight 0.5 in; 206 does not match 500) |
-| 000E | `0` | **UNKNOWN** (offset?) |
+| 000C | `1500` | supply width in mils (SDK: supplyWidth 1.5 in). M4C-250-7641-YL sleeve: `355` = 0.355 in, SDK agrees (`2026-09-08-s3/m4c-250-status.log`, `m4c-250-info.log`) |
+| 000D | `206` | **UNKNOWN**; `236` on the M4C-250 sleeve, so it depends on the supply type (not width in mils, not the SDK's supplyHeight) |
+| 000E | `0` | **UNKNOWN**; `500` on the M4C-250 sleeve while the SDK reported supplyHeight 0 for it and 0.5 for the 1.5 in tapes (so it is not what the SDK calls supplyHeight either) |
 | 000F | `0` | **UNKNOWN** (offset?) |
 | 0016 | `90` | supply remaining percent (SDK: 90) |
 | 0020 | `2.0.1005769` | firmware version |
 | 0026 | `30` | **UNKNOWN** |
 | 0029 | `` (empty) | **UNKNOWN** (message text?) |
 | 001F | `True` | **UNKNOWN** |
-| 004D | `5153508` | supply part number (SDK: supplyYNumber) |
+| 004D | `5153508` | supply part number (SDK: supplyYNumber). Second cartridge: `5072987` = SDK name `M5C-1500-595-OR-BK`, 96 % (`2026-09-08-s3/*orange-info.jsonl`, `orange-info.log`). Third: `5072986` = `M5C-1500-595-CL-BK` (name read off the cartridge by Alex), 83 % (`clear-status.log`). Fourth: `5072905` = `M5C-1500-595-CL-WT` (same), 94 % (`clear-white-status.log`). Fifth: `5072903` = `M5C-1500-595-BK-WT` (same), 94 % (`black-white-status.log`). Sixth: `5073028` = SDK name `M4C-250-7641-YL`, 92 % (`m4c-250-info.log`) |
 | 0006, 0066 | `True` while the cartridge latch is open (printer LED blinking), `False` otherwise | cartridge latch / cover open (`2026-09-08-s3/latch-open-snapshot.json`, live property updates via `brusdk serve`); which of the two is latch vs. cover, and whether one means "cartridge not readable", **UNKNOWN** |
 | 0005 000A 0013 001C 0021 0024 0025 0027 005A 0061 | `False` | status flags, all clear so far; meaning **UNKNOWN** until seen True |
 
