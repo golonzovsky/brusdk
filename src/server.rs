@@ -14,9 +14,10 @@ use tokio::sync::Mutex;
 
 /// The SDK's head window (1.44 in) as the studio knows it; the canvas itself is the full supply width.
 const PRINTABLE_HEIGHT_IN: f64 = 1.44;
-/// The SDK placed images 36 rows down; the studio passes -0.12 in to cancel that. Keep that contract.
-const SDK_DEFAULT_ROW: i32 = 36;
-const DEFAULT_X_OFFSET_IN: f64 = -0.12;
+/// The studio passes xOffsetIn = -2 * (width - 1.44) to cancel the SDK's default placement; keep that contract.
+fn default_x_offset_in(width_in: f64) -> f64 {
+    -(supply::default_row(width_in) as f64) / supply::DPI as f64
+}
 
 /// Property 0001 is a class, not a number. "High" is the only value observed; the SDK showed 100 % for it.
 /// Other classes have not been seen, so they stay unmapped rather than guessed.
@@ -81,7 +82,7 @@ async fn snapshot(app: &App) -> Value {
                 "supplyRemainingPercentage": st.supply_remaining_pct, "batteryLevel": st.battery, "batteryLevelPercentage": battery_percent(st.battery.as_deref()),
                 "isAcConnected": Value::Null, "message": st.last_job_status, "messageTitle": Value::Null,
                 "errorSeverity": if st.last_job_failed { "Error" } else { "" },
-                "printableHeightIn": PRINTABLE_HEIGHT_IN, "xOffsetIn": DEFAULT_X_OFFSET_IN, "properties": p.properties(),
+                "printableHeightIn": PRINTABLE_HEIGHT_IN.min(width.unwrap_or(PRINTABLE_HEIGHT_IN)), "xOffsetIn": default_x_offset_in(width.unwrap_or(supply::HEAD_IN)), "properties": p.properties(),
             }));
         } else {
             *app.last_error.lock().unwrap() = Some("Printer dropped the Bluetooth link (it sleeps when idle). Wake it and connect again.".into());
@@ -148,7 +149,6 @@ fn one() -> u32 {
 async fn run_job(app: &App, req: PrintReq, dry: bool) -> Result<Value, ApiError> {
     let png = base64::engine::general_purpose::STANDARD.decode(req.png_base64.trim()).map_err(|e| ApiError(StatusCode::BAD_REQUEST, format!("pngBase64: {e}")))?;
     let img = image::load_from_memory(&png).map_err(|e| ApiError(StatusCode::BAD_REQUEST, format!("png: {e}")))?.to_luma8();
-    let x = req.x_offset_in.unwrap_or(DEFAULT_X_OFFSET_IN);
     let y = req.y_offset_in.unwrap_or(0.0);
     let dpi = supply::DPI as f64;
     let mut guard = app.printer.lock().await;
@@ -162,13 +162,14 @@ async fn run_job(app: &App, req: PrintReq, dry: bool) -> Result<Value, ApiError>
     if !dry && !connected {
         return Err(ApiError(StatusCode::SERVICE_UNAVAILABLE, "printer not connected: wake it (power button) and press Connect".into()));
     }
+    let x = req.x_offset_in.unwrap_or_else(|| default_x_offset_in(supply.width_in));
     let rows = supply::canvas_rows(supply.width_in);
-    let raster = Raster::place(&img, rows, (y * dpi).round() as i32, SDK_DEFAULT_ROW + (x * dpi).round() as i32);
+    let raster = Raster::place(&img, rows, (y * dpi).round() as i32, supply::default_row(supply.width_in) + (x * dpi).round() as i32);
     let mut params = JobParams::new(new_job_id(), supply::job_prefix(supply.name));
     params.copies = req.copies.max(1);
     params.cut = req.cut_option;
     let ink = raster.ink_rows();
-    let head_rows = (PRINTABLE_HEIGHT_IN * dpi).round() as u32;
+    let head_rows = ((PRINTABLE_HEIGHT_IN.min(supply.width_in)) * dpi).round() as u32;
     let mut png_out = Vec::new();
     raster.to_image().write_to(&mut std::io::Cursor::new(&mut png_out), image::ImageFormat::Png).map_err(|e| anyhow!(e))?;
     let (ok, error, message) = if dry {

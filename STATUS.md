@@ -1,6 +1,6 @@
 # Status
 
-_Updated: 2026-09-08 03:45 CEST_
+_Updated: 2026-09-08 12:40 CEST_
 
 ## Known (from the device or the wire)
 
@@ -52,10 +52,9 @@ _Updated: 2026-09-08 03:45 CEST_
   the other ten flags and non-"High" battery classes are unmapped.
 - Head extent on the 450-row canvas (rows 432-449) untested; one full-height
   column print would settle it.
-- Narrow supplies: the canvas height rule (0.355 in -> 106 or 107 rows) and the
-  SDK's row placement on them are unverified; one dot print on the M4C sleeve
-  under capture would settle both. Until then `brusdk serve` rounds
-  (107 rows) and places at the SDK's 36-row default minus the studio's offset.
+- Narrow supplies verified (session 4, M4C sleeve): canvas rows = truncated
+  width x 300 (106), default placement row 0; `src/supply.rs` encodes both rules
+  and the sleeve job is in the byte-exact tests.
 - The polyfill's scan is flaky: about one connect in four times out at 30 s,
   60 s works; the Rust scanner needs the same patience.
 

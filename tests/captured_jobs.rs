@@ -81,3 +81,20 @@ fn s2_x0() { check_with("2026-09-08-s2", "x0", "dot-r0c0-150", |p| p, 0, 36); }
 fn s2_y0_1() { check_with("2026-09-08-s2", "y0.1", "dot-r0c0-150", |p| p, 30, 0); }
 #[test]
 fn s2_corners_p1_150() { check_with("2026-09-08-s2", "corners-p1-150", "corners-p1-150", |p| p, 0, 0); }
+
+/// Narrow supply (M4C-250-7641-YL, 0.355 in): the SDK's canvas is 149 x 106 (its own raster PNG is the input here),
+/// height field 0106, dot at row 0 with a zero x offset, supply prefix "M4C-250-76".
+#[test]
+fn s4_m4c_dot() {
+    let cap = load("2026-09-08-s4", "m4c-dot-r0c0-150x107");
+    let job: Vec<u8> = cap.fragments.iter().flat_map(|f| f[3..].to_vec()).collect();
+    let job_id = std::str::from_utf8(&job[4..36]).unwrap().to_string();
+    let img = image::open(Path::new(env!("CARGO_MANIFEST_DIR")).join("captures/2026-09-08-s4/m4c-dot-r0c0-150x107-raster.png")).unwrap().to_luma8();
+    let width_in = 0.355;
+    assert_eq!(brusdk::supply::canvas_rows(width_in), 106);
+    assert_eq!(brusdk::supply::default_row(width_in), 0);
+    assert_eq!(brusdk::supply::default_row(1.5), 36);
+    let raster = Raster::place(&img, brusdk::supply::canvas_rows(width_in), 0, brusdk::supply::default_row(width_in));
+    let ours = encode(&JobParams::new(job_id, brusdk::supply::job_prefix("M4C-250-7641-YL")), &raster);
+    assert_eq!(hex::encode(&ours), hex::encode(&job));
+}

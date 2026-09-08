@@ -19,9 +19,18 @@ pub const SUPPLIES: &[Supply] = &[
 
 pub const DPI: u32 = 300;
 
-/// Rows the print head covers on the 1.5 in supply: the SDK's canvas height.
+/// Head window the SDK works with (1.44 in).
+pub const HEAD_IN: f64 = 1.44;
+
+/// Canvas height = supply width at 300 dpi, truncated: 1.5 in -> 450, 0.355 in -> 106 (captures s1, s4).
 pub fn canvas_rows(width_in: f64) -> u32 {
-    (width_in * DPI as f64).round() as u32
+    (width_in * DPI as f64) as u32
+}
+
+/// Row the SDK puts the image's top on with a zero x offset: 36 on 1.5 in, 0 on 0.355 in (s2/x0, s4).
+/// Fits 2 * (width - 1.44 in), the rule the studio's default x offset cancels.
+pub fn default_row(width_in: f64) -> i32 {
+    if width_in > HEAD_IN { (2.0 * (width_in - HEAD_IN) * DPI as f64).round() as i32 } else { 0 }
 }
 
 pub fn lookup(part_number: &str) -> Option<&'static Supply> {

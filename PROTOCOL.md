@@ -182,9 +182,12 @@ With copies > 1 the header (`K/000a` .. `M`) is sent once and the label block fr
 `c`, `p/o/O/b`, `M`) is repeated per copy with the same job id (`s2/copies2`: 233 bytes =
 144 + 89). The printer then reports one `<job id>:Successful`.
 
-Height is 450 = supply width 1500 mils at 300 dpi; the SDK draws the 432-row input at
-the top of a 450-row canvas (`*-raster.png`, all 150 x 450, ink at the same pixels as
-the input). Width is the image width in pixels.
+Height is the supply width at 300 dpi, truncated: 450 for 1500 mils, 106 for 355 mils
+(`2026-09-08-s4/*m4c-dot-r0c0-150x107.jsonl`: `K/000c "0106" "0149"`). The SDK draws the
+input at the top of that canvas (`*-raster.png`, 150 x 450 for the wide tapes, ink at
+the same pixels as the input); a 107-row input on the 106-row canvas was scaled to
+149 x 106 by the SDK. Width is the canvas width in pixels. The supply-name prefix in
+`K/0009` was `M4C-250-76` on the sleeve, i.e. always the first 10 characters.
 
 ### 4.3 Raster encoding
 
@@ -222,7 +225,9 @@ The SDK's x/y offsets never reach the header; they move the image on the canvas:
 - x offset (across the tape) shifts rows: with x = 0 the dot at input (0,0) lands on
   row 36 (`s2/x0`: column data `81 02 23 80` = white 36, black 1); with x = -0.12 in
   (36 px) it lands on row 0. So the SDK's default placement is 0.12 in below the top of
-  the 450-row canvas, and the label studio's -0.12 in cancels that.
+  the 450-row canvas, and the label studio's -0.12 in cancels that. On the 0.355 in
+  sleeve x = 0 puts the dot on row 0 (`s4`: `80 01 80`), so the default placement is
+  0 for supplies narrower than the 1.44 in head; 2 x (width - 1.44 in) fits both.
 - y offset (along the tape) shifts columns: y = 0.1 in moves the dot from column 149
   to 119, i.e. 30 px toward the far end (`s2/y0.1`: `59 77 00`), then `59 96 00`.
 - Odd width works the same: 151 px -> `K/000c "0450" "0151"`, corner dots at Y = 0 and
