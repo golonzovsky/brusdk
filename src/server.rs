@@ -34,6 +34,12 @@ pub struct App {
     last_error: std::sync::Mutex<Option<String>>,
 }
 
+impl App {
+    pub fn new() -> Arc<App> {
+        Arc::new(App { printer: Mutex::new(None), busy: std::sync::Mutex::new(None), last_error: std::sync::Mutex::new(None) })
+    }
+}
+
 type S = State<Arc<App>>;
 
 struct ApiError(StatusCode, String);
@@ -132,14 +138,19 @@ async fn disconnect(State(app): S) -> Result<Json<Value>, ApiError> {
 
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
-struct PrintReq {
-    png_base64: String,
+pub struct PrintReq {
+    pub png_base64: String,
     #[serde(default = "one")]
-    copies: u32,
+    pub copies: u32,
     #[serde(default)]
-    cut_option: u8,
-    x_offset_in: Option<f64>,
-    y_offset_in: Option<f64>,
+    pub cut_option: u8,
+    pub x_offset_in: Option<f64>,
+    pub y_offset_in: Option<f64>,
+}
+
+/// Encode (and with `dry == false` print) a job for an embedding server; errors carry the HTTP status the route would answer with.
+pub async fn run_print(app: &App, req: PrintReq, dry: bool) -> Result<Value, (StatusCode, String)> {
+    run_job(app, req, dry).await.map_err(|e| (e.0, e.1))
 }
 
 fn one() -> u32 {
@@ -223,9 +234,9 @@ async fn cut(State(app): S) -> Result<Json<Value>, ApiError> {
     with_printer(&app, "cutting", async |p| p.cut().await).await
 }
 
-pub async fn serve(port: u16) -> Result<()> {
-    let app = Arc::new(App { printer: Mutex::new(None), busy: std::sync::Mutex::new(None), last_error: std::sync::Mutex::new(None) });
-    let router = Router::new()
+/// The printer routes with their state applied, ready to merge into another axum router.
+pub fn router(app: Arc<App>) -> Router {
+    Router::new()
         .route("/api/printer", get(get_printer))
         .route("/api/connect", post(connect))
         .route("/api/disconnect", post(disconnect))
@@ -233,7 +244,11 @@ pub async fn serve(port: u16) -> Result<()> {
         .route("/api/dryrun", post(dryrun))
         .route("/api/feed", post(feed))
         .route("/api/cut", post(cut))
-        .with_state(app);
+        .with_state(app)
+}
+
+pub async fn serve(port: u16) -> Result<()> {
+    let router = router(App::new());
     let listener = tokio::net::TcpListener::bind(("127.0.0.1", port)).await?;
     eprintln!("brusdk printer server on http://127.0.0.1:{port}");
     axum::serve(listener, router).await?;
