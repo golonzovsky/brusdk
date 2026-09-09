@@ -3,7 +3,7 @@
 A Rust driver for the Brady M511 label printer over Bluetooth LE, written without
 Brady's SDK. It discovers the printer, reads its state, and prints 1-bit rasters
 with copies and cut options, and it serves the same HTTP API as the Node sidecar the
-[brady-label-studio](../../js/brady-label-studio) used to run, so the studio can print
+[brady-label-studio](https://github.com/golonzovsky/brady-label-studio) used to run, so the studio can print
 through it unchanged.
 
 ## Why
