@@ -1,4 +1,4 @@
-{"t_ms":0,"ev":"start","label":"idle60","argv":["/Users/ax/project/rust/brusdk/tools/capture/drive.mjs","idle","--seconds","60","--scan","30"],"file":"captures/2026-09-08-s0/2026-09-08T00-20-10-120Z-idle60.jsonl"}
+{"t_ms":0,"ev":"start","label":"idle60","argv":["tools/capture/drive.mjs","idle","--seconds","60","--scan","30"],"file":"captures/2026-09-08-s0/2026-09-08T00-20-10-120Z-idle60.jsonl"}
 {"t_ms":16858.3,"ev":"connect","device":"M511","id":"39F606D6-DEF4-FE00-9C17-2B9FF82B3B8C"}
 {"t_ms":19736.1,"ev":"connected"}
 {"t_ms":19736.6,"ev":"services","requested":"0000fd1c-0000-1000-8000-00805f9b34fb","uuids":["0000fd1c-0000-1000-8000-00805f9b34fb"]}

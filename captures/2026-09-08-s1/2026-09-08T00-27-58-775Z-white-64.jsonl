@@ -1,4 +1,4 @@
-{"t_ms":0,"ev":"start","label":"white-64","argv":["/Users/ax/project/rust/brusdk/tools/capture/drive.mjs","print","--image","captures/probes/white-64.png","--scan","30"],"file":"captures/2026-09-08-s1/2026-09-08T00-27-58-775Z-white-64.jsonl"}
+{"t_ms":0,"ev":"start","label":"white-64","argv":["tools/capture/drive.mjs","print","--image","captures/probes/white-64.png","--scan","30"],"file":"captures/2026-09-08-s1/2026-09-08T00-27-58-775Z-white-64.jsonl"}
 {"t_ms":29520.6,"ev":"connect","device":"M511","id":"39F606D6-DEF4-FE00-9C17-2B9FF82B3B8C"}
 {"t_ms":32467.5,"ev":"connected"}
 {"t_ms":32468.2,"ev":"services","requested":"0000fd1c-0000-1000-8000-00805f9b34fb","uuids":["0000fd1c-0000-1000-8000-00805f9b34fb"]}

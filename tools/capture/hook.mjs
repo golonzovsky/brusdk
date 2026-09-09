@@ -25,7 +25,8 @@ if (dir) {
   const hex = (v) => Buffer.from(bytesOf(v)).toString('hex');
   const short = (uuid) => uuid.slice(0, 8);
 
-  log({ ev: 'start', label, argv: process.argv.slice(1), file });
+  const rel = (x) => (typeof x === 'string' && x.startsWith(process.cwd()) ? path.relative(process.cwd(), x) : x);
+  log({ ev: 'start', label, argv: process.argv.slice(1).map(rel), file: rel(file) });
   process.on('exit', (code) => log({ ev: 'exit', code }));
 
   const pServerConnect = Server.prototype.connect;

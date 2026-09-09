@@ -1,4 +1,4 @@
-{"t_ms":0,"ev":"start","label":"m4c-250-info","argv":["/Users/ax/project/rust/brusdk/tools/capture/drive.mjs","info","--scan","60"],"file":"captures/2026-09-08-s3/2026-09-08T10-18-14-703Z-m4c-250-info.jsonl"}
+{"t_ms":0,"ev":"start","label":"m4c-250-info","argv":["tools/capture/drive.mjs","info","--scan","60"],"file":"captures/2026-09-08-s3/2026-09-08T10-18-14-703Z-m4c-250-info.jsonl"}
 {"t_ms":3553.9,"ev":"connect","device":"M511","id":"39F606D6-DEF4-FE00-9C17-2B9FF82B3B8C"}
 {"t_ms":6438.6,"ev":"connected"}
 {"t_ms":6439.1,"ev":"services","requested":"0000fd1c-0000-1000-8000-00805f9b34fb","uuids":["0000fd1c-0000-1000-8000-00805f9b34fb"]}
